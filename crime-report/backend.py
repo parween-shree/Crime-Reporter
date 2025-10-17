@@ -10,7 +10,9 @@ USER_CREDENTIALS = {
 
 def load_data():
     data = pd.read_csv("crime.csv")
+    data.columns = data.columns.map(str)
     data.columns = data.columns.str.strip().str.upper()
+
     # Convert all columns except STATE/UT, DISTRICT, YEAR to numeric, handling errors
     crime_columns = [col for col in data.columns if col not in ['STATE/UT', 'DISTRICT', 'YEAR']]
     for col in crime_columns:
@@ -222,5 +224,6 @@ def get_top_crime_composition(data, state, top_n=5):
     composition = composition[composition > 0]
     
     return composition
+
 
 
