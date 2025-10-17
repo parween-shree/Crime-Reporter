@@ -133,7 +133,9 @@ def filter_state_district(data, state, district=None, year=None):
 
     # Convert all column names to strings and normalize them
     filtered_data.columns = filtered_data.columns.map(str)
-    filtered_data.columns = filtered_data.columns.str.strip().str.upper()
+    # Convert all column names to string, then normalize
+    filtered_data.columns = [str(col).strip().upper() for col in filtered_data.columns]
+
 
     if year is not None and "YEAR" in filtered_data.columns:
         filtered_data = filtered_data[filtered_data["YEAR"] == year]
@@ -224,6 +226,7 @@ def get_top_crime_composition(data, state, top_n=5):
     composition = composition[composition > 0]
     
     return composition
+
 
 
 
