@@ -9,6 +9,19 @@ from backend import (
     calculate_safety_ratio, get_top_crime_composition, 
     authenticate_user, register_user # Authentication imports
 )
+import os
+import pandas as pd
+import streamlit as st
+
+st.write("Current directory:", os.getcwd())
+st.write("Files in current directory:", os.listdir())
+
+try:
+    data = pd.read_csv("crime.csv", encoding='utf-8-sig')
+    st.write("Columns in CSV:", data.columns.tolist())
+except Exception as e:
+    st.error(f"Failed to read CSV: {e}")
+
 
 st.set_page_config(page_title="Crime Visualization Dashboard", layout="centered")
 
@@ -449,4 +462,5 @@ else:
         st.divider()
 
    
+
 
