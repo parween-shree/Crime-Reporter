@@ -14,6 +14,7 @@ st.set_page_config(page_title="Crime Visualization Dashboard", layout="centered"
 
 # --- Initial Data Load & Setup ---
 data = load_data() 
+st.write("Columns in dataset:", list(data.columns))
 
 # --- INITIALIZE LOGIN STATE ---
 if "logged_in" not in st.session_state:
@@ -448,3 +449,4 @@ else:
         st.divider()
 
    
+
