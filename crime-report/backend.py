@@ -132,7 +132,18 @@ def filter_state_district(data, state, district=None, year=None):
     if year is not None and "YEAR" in filtered_data.columns:
         filtered_data = filtered_data[filtered_data["YEAR"] == year]
         
-    filtered_data = filtered_data[filtered_data["STATE/UT"] == state]
+    # Normalize column names for safety
+    filtered_data.columns = filtered_data.columns.str.strip().str.upper()
+
+# Check if STATE/UT exists
+    if "STATE/UT" in filtered_data.columns:
+        filtered_data = filtered_data[filtered_data["STATE/UT"] == state.upper()]
+    elif "STATE" in filtered_data.columns:
+        filtered_data = filtered_data[filtered_data["STATE"] == state.upper()]
+    else:
+        st.error("⚠️ Could not find 'STATE/UT' or 'STATE' column in dataset.")
+        st.stop()
+
     
     if district and "DISTRICT" in filtered_data.columns:
         filtered_data = filtered_data[filtered_data["DISTRICT"] == district]
@@ -201,3 +212,4 @@ def get_top_crime_composition(data, state, top_n=5):
     composition = composition[composition > 0]
     
     return composition
+
