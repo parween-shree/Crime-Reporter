@@ -9,7 +9,7 @@ USER_CREDENTIALS = {
 }
 
 def load_data():
-    data = pd.read_csv("crime.csv")
+    data = pd.read_csv("crime.csv", encoding='utf-8-sig')
     data.columns = data.columns.map(str)
     data.columns = data.columns.str.strip().str.upper()
 
@@ -90,7 +90,7 @@ def load_data():
     Also ensures crime columns are numeric for safe calculations.
     """
     try:
-        data = pd.read_csv("crime.csv")
+        data = pd.read_csv("crime.csv", encoding='utf-8-sig')
         data.columns = data.columns.str.strip().str.upper()
         
         # Ensure 'TOTAL IPC CRIMES' and other crime columns are treated as numeric.
@@ -226,6 +226,7 @@ def get_top_crime_composition(data, state, top_n=5):
     composition = composition[composition > 0]
     
     return composition
+
 
 
 
